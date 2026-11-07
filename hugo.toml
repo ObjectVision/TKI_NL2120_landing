@@ -1,0 +1,23 @@
+baseURL = "https://example.org/"
+locale = "nl"
+defaultContentLanguage = "nl"
+title = "Indicatoruitkomsten NL2120"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
+
+[params]
+  description = "Drie ruimtelijke varianten voor Nederland, doorgerekend van 2040 tot 2120."
+
+[[menus.main]]
+  name = "Kaartviewer"
+  pageRef = "/kaartviewer"
+  weight = 10
+
+[[menus.main]]
+  name = "Kaartverhalen"
+  pageRef = "/kaartverhalen"
+  weight = 20
+
+[[menus.main]]
+  name = "Varianten"
+  pageRef = "/varianten"
+  weight = 30
