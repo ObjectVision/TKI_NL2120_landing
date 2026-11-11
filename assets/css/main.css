@@ -242,9 +242,6 @@ body:has(.map-embed) main { display: flex; flex: 1; min-height: 0; }
 .kaart-embed { margin-block: 1.75rem !important; }
 .kaart-frame { position: relative; height: 70vh; min-height: 420px; border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; background: var(--card-bg); }
 .kaart-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
-.kaart-activeer { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 1rem; width: 100%; border: 0; background: transparent; color: var(--ink); font: 600 1rem var(--font-body); cursor: pointer; }
-.kaart-activeer:hover, .kaart-activeer:focus-visible { background: rgba(15, 47, 54, 0.12); }
-.kaart-frame.is-actief .kaart-activeer { display: none; }
 
 /* Footer */
 .site-footer {

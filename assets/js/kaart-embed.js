@@ -14,19 +14,4 @@
       );
     });
   });
-
-  // The map captures the scroll wheel, so it only takes input after a click.
-  frames.forEach(function (frame) {
-    frame.querySelector(".kaart-activeer").addEventListener("click", function () {
-      frame.classList.add("is-actief");
-    });
-    frame.addEventListener("mouseleave", function () {
-      frame.classList.remove("is-actief");
-    });
-  });
-  document.addEventListener("pointerdown", function (event) {
-    frames.forEach(function (frame) {
-      if (!frame.contains(event.target)) frame.classList.remove("is-actief");
-    });
-  });
 })();
