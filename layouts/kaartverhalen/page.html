@@ -1,0 +1,9 @@
+{{ define "main" }}
+<article class="container page verhaal">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+</article>
+{{ with resources.Get "js/kaart-embed.js" | minify | fingerprint }}
+<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
+{{ end }}
+{{ end }}

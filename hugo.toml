@@ -6,6 +6,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
 
 [params]
   description = "Drie ruimtelijke varianten voor Nederland, doorgerekend van 2040 tot 2120."
+  mapBase = "https://map.derondekaart.nl/?variant=nl2120"
 
 [[menus.main]]
   name = "Kaartviewer"

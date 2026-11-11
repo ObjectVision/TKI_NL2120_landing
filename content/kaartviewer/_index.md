@@ -1,5 +1,4 @@
 ---
 title: "Kaartviewer"
+mapUrl: "https://map.derondekaart.nl/?variant=nl2120"
 ---
-
-Deze pagina is in ontwikkeling.

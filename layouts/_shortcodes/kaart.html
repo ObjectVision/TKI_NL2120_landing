@@ -1,0 +1,10 @@
+{{- $hash := printf "zoom=%v&center=%s&cmd=add&map=a&layer=%s" (.Get "zoom" | default "7") (.Get "center" | default "5.3,52.2") (.Get "left") -}}
+{{- with .Get "right" }}{{ $hash = printf "%s&cmd=add&map=b&layer=%s" $hash . }}{{ end -}}
+{{- $url := printf "%s#%s" site.Params.mapBase $hash -}}
+<figure class="kaart-embed">
+  <div class="kaart-frame">
+    <iframe src="{{ $url }}" title="{{ .Get "title" }}" loading="lazy" allowfullscreen></iframe>
+    <button class="kaart-activeer" type="button">Klik om de kaart te gebruiken</button>
+  </div>
+  <figcaption>{{ .Get "caption" }} <a href="{{ $url }}" target="_blank" rel="noopener">Open op volledig scherm</a></figcaption>
+</figure>

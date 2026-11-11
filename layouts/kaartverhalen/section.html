@@ -1,0 +1,15 @@
+{{ define "main" }}
+<article class="container page">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+  <div class="cards">
+    {{ range .Pages }}
+    <section class="card">
+      <h2>{{ .Title }}</h2>
+      <p>{{ .Summary | plainify }}</p>
+      <a class="button" href="{{ .RelPermalink }}">Lees het verhaal</a>
+    </section>
+    {{ end }}
+  </div>
+</article>
+{{ end }}
