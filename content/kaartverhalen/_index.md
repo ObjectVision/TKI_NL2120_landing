@@ -2,4 +2,4 @@
 title: "Kaartverhalen"
 ---
 
-Verhalen over de uitkomsten van NL2120, met kaarten die u zelf kunt verkennen.
+Verhalen over de uitkomsten van OV2120, met kaarten die u zelf kunt verkennen.

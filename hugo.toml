@@ -1,7 +1,7 @@
 baseURL = "https://example.org/"
 locale = "nl"
 defaultContentLanguage = "nl"
-title = "Indicatoruitkomsten NL2120"
+title = "Indicatoruitkomsten OV2120"
 disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
 
 [params]

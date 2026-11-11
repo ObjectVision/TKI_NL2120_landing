@@ -1,5 +1,5 @@
 ---
-title: "Indicatoruitkomsten NL2120"
+title: "Indicatoruitkomsten OV2120"
 intro: >-
   Drie ruimtelijke varianten voor Nederland, doorgerekend van 2040 tot 2120.
   Ontdek hoe waterbeheer en natuurlijke oplossingen doorwerken in
