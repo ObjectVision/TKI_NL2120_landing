@@ -20,7 +20,6 @@ scenarios:
     options:
       - { id: laag, label: "Laag", summary: "WLO 2025 – Laag" }
       - { id: hoog, label: "Hoog", summary: "WLO 2025 – Hoog", enabled: true, default: true }
-      - { id: vertraagd, label: "Vertraagd", summary: "WLO 2025 – Hoog vertraagd" }
   - id: klimaat
     label: "Scenario – klimaat"
     info: "Klimaatscenario's van het KNMI (2023)."
