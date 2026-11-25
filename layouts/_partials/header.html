@@ -1,14 +1,17 @@
 <header class="site-header">
-  <div class="container header-inner">
+  <div class="header-inner">
     <a class="brand" href="{{ site.Home.RelPermalink }}">
-      {{ with resources.Get "images/logo.svg" | minify | fingerprint }}<img class="brand-logo" src="{{ .RelPermalink }}" alt="" width="48" height="48">{{ end }}
-      <span class="brand-name">{{ site.Title }}</span>
+      {{ with resources.Get "images/logo.svg" | minify | fingerprint }}<img class="brand-logo" src="{{ .RelPermalink }}" alt="" width="40" height="40">{{ end }}
+      <span class="brand-text">
+        <span class="brand-name">{{ site.Title }}</span>
+        <span class="brand-tagline">{{ site.Params.tagline }}</span>
+      </span>
     </a>
     <nav class="main-nav" aria-label="Hoofdnavigatie">
       <ul>
         {{ range site.Menus.main }}
         {{ $active := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
-        <li><a href="{{ .URL }}"{{ if $active }} class="active" aria-current="page"{{ end }}>{{ .Name }}</a></li>
+        <li><a href="{{ .URL }}"{{ if $active }} class="active" aria-current="page"{{ end }}>{{ with .Params.icon }}{{ partial "icon.html" . }}{{ end }}<span>{{ .Name }}</span></a></li>
         {{ end }}
       </ul>
     </nav>

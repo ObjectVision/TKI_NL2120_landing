@@ -1,24 +1,32 @@
 baseURL = "https://example.org/"
 locale = "nl"
 defaultContentLanguage = "nl"
-title = "Indicatoruitkomsten OV2120"
+title = "RSLive"
 disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
 
 [params]
+  tagline = "RuimteScanner online"
   description = "Drie ruimtelijke varianten voor Nederland, doorgerekend van 2040 tot 2120."
   mapBase = "https://map.derondekaart.nl/?variant=nl2120"
 
 [[menus.main]]
   name = "Kaartviewer"
+  params = { icon = "map" }
   pageRef = "/kaartviewer"
   weight = 10
 
 [[menus.main]]
   name = "Kaartverhalen"
+  params = { icon = "book" }
   pageRef = "/kaartverhalen"
   weight = 20
 
 [[menus.main]]
   name = "Varianten"
+  params = { icon = "layers" }
   pageRef = "/varianten"
   weight = 30
+
+# The kaartverhalen are authored as HTML content files.
+[security]
+  allowContent = [".*"]

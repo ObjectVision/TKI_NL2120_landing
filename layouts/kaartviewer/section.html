@@ -1,3 +1,112 @@
 {{ define "main" }}
-<iframe class="map-embed" src="{{ .Params.mapUrl }}" title="{{ .Title }}" allowfullscreen></iframe>
+{{- $c := hugo.Data.cockpit -}}
+<div class="cockpit" data-map-base="{{ .Params.mapUrl }}" data-center="{{ $c.center }}" data-zoom="{{ $c.zoom }}"
+     data-variant="{{ $c.default.variant }}" data-indicator="{{ $c.default.indicator }}" data-year="{{ $c.default.year }}">
+  <h1 class="visually-hidden">{{ .Title }}</h1>
+
+  <div class="cockpit-bar">
+    {{- range $c.scenarios }}
+    <fieldset class="bar-group" data-scenario="{{ .id }}">
+      <legend class="label">{{ .label }} {{ with .info }}<span class="info" title="{{ . }}">{{ partial "icon.html" "info" }}</span>{{ end }}</legend>
+      <div class="seg">
+        {{- range .options }}
+        <button type="button" data-id="{{ .id }}" data-summary="{{ .summary }}"
+          {{- if .default }} aria-pressed="true"{{ else }} aria-pressed="false"{{ end }}
+          {{- if not .enabled }} disabled title="Nog niet doorgerekend"{{ end }}>{{ .label }}</button>
+        {{- end }}
+      </div>
+      <p class="bar-note" data-summary-out>{{ range .options }}{{ if .default }}{{ .summary }}{{ end }}{{ end }}</p>
+    </fieldset>
+    {{- end }}
+
+    <fieldset class="bar-group bar-time">
+      <legend class="label">Zichtjaar <span class="info" title="Jaren zonder kaartlaag voor deze indicator zijn uitgeschakeld.">{{ partial "icon.html" "info" }}</span>
+        <span class="bar-hint" data-year-hint></span></legend>
+      <div class="timeline">
+        <ol class="ticks">
+          {{- range $c.years }}
+          <li><button type="button" data-year="{{ .key }}" aria-pressed="false"><span class="dot"></span><span class="tick-label">{{ .label }}</span></button></li>
+          {{- end }}
+        </ol>
+        <output class="year-badge" data-year-out aria-live="polite"></output>
+        <button type="button" class="play" data-play aria-label="Afspelen">{{ partial "icon.html" "play" }}</button>
+      </div>
+    </fieldset>
+
+    <fieldset class="bar-group bar-compare">
+      <legend class="label">Vergelijken</legend>
+      <div class="compare">
+        <select data-compare aria-label="Vergelijk met variant">
+          <option value="">Uit</option>
+          {{- range $c.variants }}<option value="{{ .id }}">{{ .label }}</option>{{ end }}
+        </select>
+        <p class="bar-note">Toon een tweede variant naast elkaar, met een schuif.</p>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="cockpit-map">
+    <div class="map-stage">
+      <iframe class="cockpit-frame" title="{{ .Title }}" allowfullscreen></iframe>
+      <p class="map-chip" data-chip aria-live="polite"></p>
+    </div>
+
+    <aside class="panel panel-variant" aria-labelledby="pv-title">
+      <div class="panel-head">
+        <h2 class="label" id="pv-title">Beleidsvariant</h2>
+        <button type="button" class="collapse" aria-expanded="true" aria-label="Paneel inklappen">{{ partial "icon.html" "chevron" }}</button>
+      </div>
+      <div class="panel-body">
+        <label class="indicator">
+          <span class="label">Kaartlaag</span>
+          <select data-indicator>
+            {{- range $c.indicators }}<option value="{{ .id }}" data-years="{{ delimit .years " " }}">{{ .label }}</option>{{ end }}
+          </select>
+        </label>
+        <div class="variants" role="radiogroup" aria-label="Beleidsvariant">
+          {{- range $c.variants }}
+          <label class="variant-card">
+            <input type="radio" name="variant" value="{{ .id }}" data-label="{{ .label }}">
+            <span><strong>{{ .label }}</strong> <span class="variant-name">{{ .name }}</span><span class="variant-desc">{{ .description }}</span></span>
+          </label>
+          {{- end }}
+        </div>
+        {{- range $c.variants }}
+        <div class="kort" data-for="{{ .id }}" hidden>
+          <h3 class="label">{{ .label }} in het kort</h3>
+          <table>
+            {{- range .kort }}<tr><th scope="row">{{ .k }}</th><td>{{ .v }}</td></tr>{{ end }}
+          </table>
+        </div>
+        {{- end }}
+        <p class="disclaimer">{{ partial "icon.html" "info" }} RSLive toont een ontwikkelverkenning, geen definitieve beleidsuitspraak of plan.</p>
+      </div>
+    </aside>
+
+    <aside class="panel panel-kenmerken" aria-labelledby="pk-title">
+      <div class="panel-head">
+        <h2 class="label" id="pk-title">Kenmerken van de variant</h2>
+        <button type="button" class="collapse" aria-expanded="true" aria-label="Paneel inklappen">{{ partial "icon.html" "chevron" }}</button>
+      </div>
+      <div class="panel-body">
+        {{- range $c.variants }}
+        <div data-for="{{ .id }}" hidden>
+          {{- range .kenmerken }}
+          <section class="kenmerk">
+            <h3>{{ partial "icon.html" .icon }} {{ .group }}</h3>
+            <ul>
+              {{- range .items }}
+              <li class="{{ if .on }}on{{ else }}off{{ end }}"><span class="switch" aria-hidden="true"></span>{{ .label }}<span class="visually-hidden">: {{ if .on }}ja{{ else }}nee{{ end }}</span></li>
+              {{- end }}
+            </ul>
+          </section>
+          {{- end }}
+        </div>
+        {{- end }}
+        <p class="kenmerk-foot">{{ partial "icon.html" "check" }} Doorgerekend als <strong data-variant-name></strong></p>
+      </div>
+    </aside>
+  </div>
+</div>
+{{ with resources.Get "js/cockpit.js" | minify | fingerprint }}<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>{{ end }}
 {{ end }}

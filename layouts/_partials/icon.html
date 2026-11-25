@@ -1,0 +1,13 @@
+{{- /* Inline line icons, 24×24, stroke = currentColor. Usage: partial "icon.html" "map" */ -}}
+<svg class="icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+{{- if eq . "map" }}<path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/>
+{{- else if eq . "book" }}<path d="M3 5.5 9 3.5l6 2 6-2v15l-6 2-6-2-6 2z"/><path d="M9 3.5v15M15 5.5v15"/><path d="M5.5 9.5h1.5M11 8.5h2M17 9.5h1.5"/>
+{{- else if eq . "layers" }}<path d="m12 3 9 4.5-9 4.5-9-4.5z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/>
+{{- else if eq . "play" }}<path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/>
+{{- else if eq . "pause" }}<path d="M8 5v14M16 5v14" stroke-width="3"/>
+{{- else if eq . "info" }}<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5v.5"/>
+{{- else if eq . "chevron" }}<path d="m6 15 6-6 6 6"/>
+{{- else if eq . "check" }}<path d="m5 12.5 4.5 4.5L19 7.5"/>
+{{- else if eq . "drop" }}<path d="M12 3.5s6 6.4 6 10.5a6 6 0 0 1-12 0c0-4.1 6-10.5 6-10.5z"/>
+{{- end -}}
+</svg>

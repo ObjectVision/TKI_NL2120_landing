@@ -1,7 +1,7 @@
-"""Vectorize the hero illustration and logo from the concept art.
+"""Vectorize the hero illustration from the concept art.
 
 Usage: python tools/vectorize.py
-Writes assets/images/hero.svg and assets/images/logo.svg.
+Writes assets/images/hero.svg. (The logo is a hand-written SVG.)
 """
 import re
 import tempfile
@@ -17,7 +17,6 @@ OUT = ROOT / "assets" / "images"
 HERO_BOX = (600, 82, 1448, 540)   # x0, y0, x1, y1 in source pixels
 HERO_MASKS = [(0, 60, 82, 135),   # tail of the heading ("en")
               (0, 212, 125, 332)]  # tail of the intro text
-LOGO_BOX = (44, 3, 112, 71)
 
 
 def trace(img: Image.Image, scale: int, out: Path, post=None, **opts) -> None:
@@ -51,14 +50,6 @@ def drop_background(text: str, w: int, h: int) -> str:
     return text
 
 
-def clip_circle(text: str, w: int, h: int) -> str:
-    """Clip the logo to its round badge so the corners are transparent."""
-    r = min(w, h) / 2 - 14
-    head, rest = text.split(">", 1)
-    body = rest.rsplit("</svg>", 1)[0]
-    return (f'{head}><defs><clipPath id="logo-clip"><circle cx="{w/2}" cy="{h/2}" r="{r}"/>'
-            f'</clipPath></defs><g clip-path="url(#logo-clip)">{body}</g></svg>')
-
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
@@ -74,13 +65,6 @@ def main() -> None:
           filter_speckle=8, color_precision=6, layer_difference=20,
           corner_threshold=60, length_threshold=4.0, splice_threshold=45,
           path_precision=1, post=drop_background)
-
-    logo = src.crop(LOGO_BOX)
-    trace(logo, 6, OUT / "logo.svg",
-          colormode="color", hierarchical="stacked", mode="spline",
-          filter_speckle=10, color_precision=5, layer_difference=32,
-          corner_threshold=60, length_threshold=4.0, splice_threshold=45,
-          path_precision=1, post=clip_circle)
 
 
 if __name__ == "__main__":

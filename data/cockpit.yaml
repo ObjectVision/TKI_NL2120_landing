@@ -1,0 +1,116 @@
+# Cockpit of the kaartviewer.
+# Layer ids in the map follow nl2120_{variant}_{indicator}[_{year}]; see
+# https://map.derondekaart.nl/nl2120/layers.json. A year is only part of the id
+# when the indicator lists more than one year.
+
+center: "5.3,52.2"
+zoom: 7
+
+default:
+  variant: bau1
+  indicator: landgebruik
+  year: "2120"
+
+# Scenario axes. Only the enabled options have been computed for OV2120;
+# the rest are shown so the structure of the cockpit is visible.
+scenarios:
+  - id: groei
+    label: "Scenario – groei"
+    info: "Economische en demografische groei volgens de WLO-scenario's 2025."
+    options:
+      - { id: laag, label: "Laag", summary: "WLO 2025 – Laag" }
+      - { id: hoog, label: "Hoog", summary: "WLO 2025 – Hoog", enabled: true, default: true }
+      - { id: vertraagd, label: "Vertraagd", summary: "WLO 2025 – Hoog vertraagd" }
+  - id: klimaat
+    label: "Scenario – klimaat"
+    info: "Klimaatscenario's van het KNMI (2023)."
+    options:
+      - { id: ld, label: "Ld", summary: "KNMI'23 – Ld, laag en droog" }
+      - { id: gd, label: "Gd", summary: "KNMI'23 – Gd, gemiddeld en droog" }
+      - { id: hd, label: "Hd", summary: "KNMI'23 – Hd, hoog en droog", enabled: true, default: true }
+      - { id: hn, label: "Hn", summary: "KNMI'23 – Hn, hoog en nat" }
+
+# Timeline ticks. "key" is the suffix in the layer id.
+years:
+  - { key: basisjaar, label: "2023" }
+  - { key: "2030", label: "2030" }
+  - { key: "2040", label: "2040" }
+  - { key: "2050", label: "2050" }
+  - { key: "2060", label: "2060" }
+  - { key: "2070", label: "2070" }
+  - { key: "2080", label: "2080" }
+  - { key: "2090", label: "2090" }
+  - { key: "2100", label: "2100" }
+  - { key: "2110", label: "2110" }
+  - { key: "2120", label: "2120" }
+
+indicators:
+  - { id: landgebruik, label: "Landgebruik", years: [basisjaar, "2120"] }
+  - { id: verstedelijking, label: "Verstedelijking", years: ["2120"] }
+  - { id: nieuwe_natuur, label: "Nieuwe natuur", years: ["2120"] }
+  - { id: piekbuiberging, label: "Piekbuiberging, dekkingsgraad", years: ["2120"] }
+  - { id: waterberging_veen, label: "Seizoensberging veen", years: ["2120"] }
+  - { id: co2_veenoxidatie, label: "CO₂-emissie veenoxidatie", years: ["2120"] }
+  - { id: bodemkoolstof, label: "Bodemkoolstof t.o.v. basisjaar", years: ["2120"] }
+  - { id: vermeden_sterfte, label: "Vermeden sterfte door groen", years: ["2120"] }
+  - { id: woningwaarde_groen, label: "Woningwaarde door groenverandering", years: ["2120"] }
+  - { id: dichtheid_wonen, label: "Dichtheid wonen", years: ["2120"] }
+
+variants:
+  - id: bau1
+    label: "BaU"
+    name: "Business as Usual"
+    description: "Voortzetting van huidig beleid. Peilbeheer volgt de bodemdaling."
+    kort:
+      - { k: "Bouwen", v: "Volgens plannen, vooral in en bij bestaand bebouwd gebied" }
+      - { k: "Natuur", v: "Natuurnetwerk zoals vastgesteld" }
+      - { k: "Water", v: "Peil volgt de bodemdaling" }
+    kenmerken:
+      - group: "Peilbeheer in het veen"
+        icon: drop
+        items:
+          - { label: "Peil volgt de bodemdaling", on: true }
+          - { label: "Vast peil en drooglegging", on: false }
+      - group: "Natuurlijke oplossingen"
+        icon: layers
+        items:
+          - { label: "Blauwe daken, wadi's en halfverharding", on: false }
+          - { label: "Vernatting van veen", on: false }
+  - id: bau2
+    label: "BaU2"
+    name: "BaU met ander waterbeheer"
+    description: "Als BaU, maar met een vast peil en drooglegging. Verder identiek."
+    kort:
+      - { k: "Bouwen", v: "Als BaU" }
+      - { k: "Natuur", v: "Als BaU" }
+      - { k: "Water", v: "Vast peil, drooglegging en infiltratie" }
+    kenmerken:
+      - group: "Peilbeheer in het veen"
+        icon: drop
+        items:
+          - { label: "Peil volgt de bodemdaling", on: false }
+          - { label: "Vast peil en drooglegging", on: true }
+      - group: "Natuurlijke oplossingen"
+        icon: layers
+        items:
+          - { label: "Blauwe daken, wadi's en halfverharding", on: false }
+          - { label: "Vernatting van veen", on: false }
+  - id: nbsgenuanceerd
+    label: "NbS-genuanceerd"
+    name: "Natuurgebaseerde oplossingen"
+    description: "Natuurlijke oplossingen waar ze passen, binnen de landschapskaders."
+    kort:
+      - { k: "Bouwen", v: "Binnen de landschapskaders" }
+      - { k: "Natuur", v: "Meer ruimte voor natuur" }
+      - { k: "Water", v: "Berging op daken en in de openbare ruimte, vernat veen" }
+    kenmerken:
+      - group: "Peilbeheer in het veen"
+        icon: drop
+        items:
+          - { label: "Peil volgt de bodemdaling", on: false }
+          - { label: "Vernatting van veen", on: true }
+      - group: "Natuurlijke oplossingen"
+        icon: layers
+        items:
+          - { label: "Blauwe daken, wadi's en halfverharding", on: true }
+          - { label: "Meer ruimte voor natuur", on: true }
